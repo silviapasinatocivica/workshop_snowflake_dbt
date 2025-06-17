@@ -1,0 +1,37 @@
+version: 2
+
+models:
+  - name: stg_tpch__customer
+    description: "Tabla staging de clientes"
+    columns:
+      - name: c_custkey
+        data_type: number
+        description: "Clave primaria de cada cliente"
+        tests:
+          - unique
+          - not_null
+      - name: c_name
+        data_type: varchar
+        description: "Nombre del cliente"
+      - name: c_nationkey
+        data_type: number
+        description: "Clave foránea que referencia a la tabla de naciones."
+        tests:
+          ## Este test verifica que cada c_nationkey en la tabla stg_tpch__customer tenga una coincidencia en stg_tpch__nation, asegurando la integridad referencial.
+          - relationships:
+              field: n_nationkey
+              to: ref('stg_tpch__nation')
+  - name: stg_tpch__lineitem
+    description: ""
+  - name: stg_tpch__nation
+    description: ""
+  - name: stg_tpch__orders
+    description: ""
+  - name: stg_tpch__part
+    description: ""
+  - name: stg_tpch__partsupp
+    description: ""
+  - name: stg_tpch__region
+    description: ""
+  - name: stg_tpch__supplier
+    description: ""
